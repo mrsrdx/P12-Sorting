@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><title>Dynamic Table</title>
+<style>body{font:18px Arial,sans-serif;max-width:900px;margin:40px auto;padding:20px}input,select,button{font:inherit;margin:6px;padding:6px}table{border-collapse:collapse}th,td{border:1px solid #aaa;padding:10px}[hidden]{display:none}</style>
+</head><body><h1>Employee details</h1><label>Search <input id="search"></label><button id="filter">Filter</button>
+<table id="employeeTable"><thead><tr><th>ID</th><th><button id="sortName">Name (Sort)</button></th><th>Department</th></tr></thead>
+<tbody><tr><td>101</td><td>John</td><td>Testing</td></tr><tr><td>102</td><td>Alice</td><td>Development</td></tr>
+<tr><td>103</td><td>David</td><td>Database</td></tr><tr><td>104</td><td>Bob</td><td>Testing</td></tr></tbody></table>
+<script>
+const body = document.querySelector('tbody');
+document.getElementById('sortName').onclick = () => {
+ const rows = Array.from(body.rows);
+ rows.sort((a,b)=>a.cells[1].textContent.localeCompare(b.cells[1].textContent));
+ rows.forEach(row=>body.appendChild(row));
+};
+document.getElementById('filter').onclick = () => {
+ const query = document.getElementById('search').value.toLowerCase();
+ for (const row of body.rows) row.hidden = !row.cells[1].textContent.toLowerCase().includes(query);
+};
+</script></body></html>
